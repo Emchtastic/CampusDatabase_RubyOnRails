@@ -8,5 +8,4 @@ Goals:
   -Use JSON API to create a Single Page Application (SPA) 
   -Display all HTML elements in SPA
   -Utilize Ajax for all requests
-  -C/U/D operations as extra
   -Display all relationships
