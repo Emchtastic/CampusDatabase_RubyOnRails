@@ -1,5 +1,6 @@
-# assignment-04-Emchtastic (Alex Emch)
-assignment-04-Emchtastic created by GitHub Classroom
+# Campus Database created with Ruby on Rails (Alex Emch)
+
+Purpose: To allow users to create, update and search parameters including teachers, offices, and university courses.  
 
 Owner: Alex Emch
 
