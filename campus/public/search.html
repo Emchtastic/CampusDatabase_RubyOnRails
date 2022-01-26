@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>SPA to display teachers, offices, courses, and sections in campus</title>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <br>
+    <h1>Welcome to the campus database main page</h1>
+    <h2>Display all: </h2>
+    <div id="Itemlist"> 
+        
+        <button v-on:click="choice=1">teachers</button>
+        <button v-on:click="choice=2">offices</button>
+        <button v-on:click="choice=3">courses</button>
+        <button v-on:click="choice=4">sections</button>
+        <span v-if="choice === 1">
+            <ul>
+            <div v-for="teacher in teachers">
+                <li>{{teacher.first_name}} {{teacher.last_name}}</li>
+            </div>
+            </ul>
+        </span>
+        <span v-else-if="choice === 2">
+            <ul>
+            <div v-for="office in offices">
+                <li>{{office.build_name}} {{office.room_number}}</li>
+                <!-- might be cleaner to filter... -->
+                <div v-for="teacher in teachers">
+                    <span v-if="teacher.office_id === office.id">
+                        {{teacher.first_name}} {{teacher.last_name}}
+                    </span>
+                </div>
+            </div>
+            </ul>
+        </span>
+        <span v-else-if="choice === 3">
+            <ul>
+            <div v-for="course in courses">
+                <li>{{course.Prefix}} {{course.Number}}</li>
+                <!-- might be cleaner to filter... -->
+                <div v-for="section in sections">
+                    <span v-if="section.course_id === course.id">
+                        {{section.Semester}}, {{section.Year}}
+                    </span>
+                </div>
+            </div>
+            </ul>
+        </span>
+        <span v-else-if="choice === 4">
+            <ul>
+            <div v-for="section in sections">
+                <li>{{section.Semester}}, {{section.Year}}</li>
+                <!-- might be cleaner to filter... -->
+                <div v-for="course in courses">
+                    <span v-if="section.course_id === course.id">
+                        {{course.Prefix}} {{course.Number}}
+                    </span>
+                </div>
+            </div>
+            </ul>
+        </span>
+        <span v-else>Please choose an option</span>
+    </div>
+
+    <script type="text/javascript">
+        let ItemsVue = new Vue({
+            el: '#Itemlist',
+            data: { 
+                choice: null,
+                teachers: [],
+                offices: [],
+                courses: [],
+                sections: [] },
+            mounted: function() {
+                axios.get('http://localhost:3000/teachers.json')
+                    .then(response => { this.teachers = response.data })
+                    .catch(error => { console.log(error); });
+                axios.get('http://localhost:3000/offices.json')
+                    .then(response => { this.offices = response.data })
+                    .catch(error => { console.log(error); });
+                axios.get('http://localhost:3000/courses.json')
+                    .then(response => { this.courses = response.data })
+                    .catch(error => { console.log(error); });
+                axios.get('http://localhost:3000/sections.json')
+                    .then(response => { this.sections = response.data })
+                    .catch(error => { console.log(error); });
+            }
+        });
+    </script>
+</body>
+<br><br>
+    <head>
+        <script>
+            var AjaxResultsId = "results";
+            var AjaxQueryId = "query";
+            var AjaxHeader = "Found: <br>";
+            var AjaxPrefix = "";
+            var AjaxSuffix = "<br/>";
+        </script>
+        <script type="text/javascript" src="javascripts/AJAXQuery.js"></script>
+    </head>
+       <body>
+        
+            <h2>Search for (choose one then input)</h2>
+            <form>
+                <input class="choiceCheckbox" type="checkbox" value = '1' id="option1" name="check" onclick="oneCheck(this)">
+                <label for="option1"> Teachers (Last name)</label><br>
+                <input class="choiceCheckbox" type="checkbox" value = '2' id="option2" name="check" onclick="oneCheck(this)">
+                <label for="option2"> Offices (Building name)</label><br>
+                <input class="choiceCheckbox" type="checkbox" value = '3' id="option3" name="check" onclick="oneCheck(this)">
+                <label for="option3"> Courses (Description)</label>
+            </form>
+           <input type="text" id="query"/>
+           <div id="results"></div>
+       </body>
+
+       <script>
+        function oneCheck(checkbox) {
+            var checkboxes = document.getElementsByName('check');
+            checkboxes.forEach((item) => {
+            if (item !== checkbox) {
+                item.checked = false;
+            } 
+            })}
+      </script>
+
+</html>

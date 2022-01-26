@@ -1,0 +1,32 @@
+<%= form_with(model: office) do |form| %>
+  <% if office.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(office.errors.count, "error") %> prohibited this office from being saved:</h2>
+
+      <ul>
+        <% office.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :build_name %>
+    <%= form.text_field :build_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :floor_number %>
+    <%= form.number_field :floor_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :room_number %>
+    <%= form.number_field :room_number %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

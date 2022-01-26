@@ -1,0 +1,26 @@
+<h1>Found Courses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Build name</th>
+      <th>Floor number</th>
+      <th>Room number</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @offices.each do |office| %>
+      <tr>
+        <td><%= office.build_name %></td>
+        <td><%= office.floor_number %></td>
+        <td><%= office.room_number %></td>
+        <td><%= link_to 'Show', office %></td>
+        <td><%= link_to 'Edit', edit_office_path(office) %></td>
+        <td><%= link_to 'Destroy', office, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%=link_to 'Back', offices_path%>

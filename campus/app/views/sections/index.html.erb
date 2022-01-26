@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Weclome to the campus course section page</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Semester</th>
+      <th>Course</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sections.each do |section| %>
+      <tr>
+        <td><%= section.Year %></td>
+        <td><%= section.Semester %></td>
+        <td><%= section.course.Description %></td>
+        <td><%= link_to 'Show', section %></td>
+        <td><%= link_to 'Edit', edit_section_path(section) %></td>
+        <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Section', new_section_path %>
+
+<br><br>
+
+<%=form_tag(search_sections_url, method: "get") do%>
+  <%=label_tag(:query, "Search for:") %>
+  <%=text_field_tag(:query) %>
+  <%=submit_tag("Search") %>
+<%end%>
+
+<br><br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Navigation</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%=link_to 'Teachers', teachers_path%></td>
+      <td><%=link_to 'Offices', offices_path%></td>
+      <td><%=link_to 'Courses', courses_path%></td>
+    </tr>
+

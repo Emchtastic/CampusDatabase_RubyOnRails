@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Prefix:</strong>
+  <%= @course.Prefix %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @course.Number %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @course.Description %>
+</p>
+
+<ol>
+<%@course.sections.each do|section| %>
+<li><%=section.Semester%>
+<%=section.Year%>
+<%end%>
+</ol>
+
+<%= link_to 'Edit', edit_course_path(@course) %> |
+<%= link_to 'Back', courses_path %>
